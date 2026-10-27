@@ -58,4 +58,32 @@ render();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 }
-</script></body></html>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDB0DCz0ds1zh4YodlzXGOpe3kxZQm3nkc",
+    authDomain: "cyber-web-isp.firebaseapp.com",
+    projectId: "cyber-web-isp",
+    storageBucket: "cyber-web-isp.firebasestorage.app",
+    messagingSenderId: "557896647901",
+    appId: "1:557896647901:web:692b993c8c6f76c53bc734",
+    measurementId: "G-LFFH39SYYC"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("Firebase login active:", user.uid);
+    } else {
+      console.log("No user is logged in.");
+    }
+  });
+</script> </script></body></html>
