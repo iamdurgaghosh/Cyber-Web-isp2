@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#12345b">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Cyber Web ISP</title>
+<style>
+:root{--navy:#12345b;--blue:#087fbd;--cyan:#29c8ec;--bg:#f2f7fb;--ink:#162a40;--muted:#66788a;--line:#dce7ef;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;color:var(--ink)}
+header{background:linear-gradient(135deg,#10294a,#145a87);color:white;padding:20px 17px 16px;border-radius:0 0 22px 22px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:14px;background:var(--cyan);color:#10345a;display:grid;place-items:center;font-size:26px;font-weight:900}
+h1{font-size:21px;margin:0}header p{margin:4px 0 0;color:#cceeff;font-size:12px}
+.tabs{display:flex;gap:8px;margin-top:18px}.tabs button{flex:1;border:1px solid #6384a4;background:#244b70;color:white;border-radius:11px;padding:11px 7px;font-weight:700}.tabs button.active{background:var(--cyan);color:#12345b;border-color:var(--cyan)}
+main{padding:16px;max-width:620px;margin:auto}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:var(--muted);font-size:12px}.card{background:white;border:1px solid var(--line);border-radius:17px;padding:15px;margin:12px 0;box-shadow:0 4px 16px #163a5708}.hero{background:var(--navy);color:white;border-radius:18px;padding:18px;margin-top:12px}.hero .muted{color:#b9d9ef}.big{font-size:29px;font-weight:800;margin:5px 0}.badge{display:inline-block;background:#d9f8e9;color:#146c46;border-radius:99px;padding:5px 9px;font-size:11px;font-weight:800}.badge.warn{background:#fff0cf;color:#8a5a00}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tile{background:white;border:1px solid var(--line);border-radius:15px;padding:15px;text-align:left;color:var(--ink);font:inherit}.tile b{display:block;margin:7px 0 4px}.tile span{font-size:12px;color:var(--muted)}button{cursor:pointer}.btn{border:0;border-radius:12px;background:var(--blue);color:white;font-weight:750;padding:12px 14px;width:100%;margin-top:10px}.btn.secondary{background:white;color:var(--blue);border:1px solid #acd4e8}.btn.small{width:auto;margin:0;padding:8px 10px;font-size:12px}.nav{display:flex;gap:5px;margin-top:15px}.nav button{flex:1;border:0;background:white;border-radius:12px;padding:10px 3px;color:var(--muted);font-size:12px}.nav button.active{background:#d9f3ff;color:#0877ad;font-weight:800}label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}input,select,textarea{width:100%;padding:12px;border:1px solid #cddbe6;border-radius:10px;font:inherit;background:white}textarea{min-height:90px;resize:vertical}.item{padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}.notice{background:#e5f6ff;border:1px solid #b7e7f9;padding:11px;border-radius:11px;color:#075985;font-size:13px;margin-top:10px}.hide{display:none!important}footer{text-align:center;color:#8090a0;font-size:11px;padding:14px 18px 25px}
+</style></head>
+<body>
+<header><div class="brand"><div class="logo">CW</div><div><h1>CYBER WEB</h1><p>Broadband • Fast. Reliable. Connected.</p></div></div>
+<div class="tabs"><button id="customerTab" class="active" onclick="setMode('customer')">গ্রাহক অ্যাপ</button><button id="adminTab" onclick="setMode('admin')">অ্যাডমিন প্যানেল</button></div></header>
+<main id="app"></main><footer>Cyber Web ISP • মোবাইল প্রোটোটাইপ<br>ডেমো তথ্য — বাস্তব সার্ভার বা পেমেন্টের সঙ্গে যুক্ত নয়</footer>
+<script>
+let mode='customer',page='home',paid=false,notice='',tickets=[],customers=[
+{name:'রাহুল দাস',id:'CW1001',plan:599,status:'সক্রিয়'},
+{name:'সুমন জানা',id:'CW1002',plan:799,status:'সক্রিয়'},
+{name:'অমিত ঘোষ',id:'CW1003',plan:399,status:'বকেয়া'}];
+const plans=[{v:399,s:'50 Mbps'},{v:599,s:'100 Mbps'},{v:799,s:'150 Mbps'},{v:999,s:'200 Mbps'}];
+function setMode(m){mode=m;page=m==='customer'?'home':'overview';notice='';document.getElementById('customerTab').classList.toggle('active',m==='customer');document.getElementById('adminTab').classList.toggle('active',m==='admin');render()}
+function go(p){page=p;notice='';render()}
+function msg(s){notice=s;render()}
+function render(){let a=document.getElementById('app');a.innerHTML=mode==='customer'?customerView():adminView()}
+function customerView(){
+let title={home:'স্বাগতম, রাহুল!',billing:'বিল ও পেমেন্ট',plans:'ইন্টারনেট প্ল্যান',support:'কাস্টমার সাপোর্ট',account:'আমার অ্যাকাউন্ট'}[page]||'Cyber Web';
+let s=`<div class="row"><div><b>${title}</b><div class="muted">Customer ID: CW1001</div></div><span>🔔</span></div>`;
+if(page==='home')s+=`<section class="hero"><div class="row"><span class="muted">ইন্টারনেট সংযোগ</span><span class="badge">সক্রিয় (ডেমো)</span></div><div class="big">100 Mbps</div><div class="muted">Cyber Web Premium Plan</div><hr style="border-color:#365777;margin:16px 0"><div class="row"><div><div class="muted">মাসিক বিল</div><b style="font-size:23px">₹${paid?'0':'599'}</b></div><div><div class="muted">বিলের অবস্থা</div><b>${paid?'পরিশোধিত':'বকেয়া'}</b></div></div><button class="btn" onclick="go('billing')">বিল পরিশোধ করুন →</button></section>
+<div class="grid"><button class="tile" onclick="go('billing')">💳<b>বিল ও পেমেন্ট</b><span>বিল দেখুন ও পরিশোধ করুন</span></button><button class="tile" onclick="go('plans')">📶<b>প্ল্যান পরিবর্তন</b><span>স্পিড নির্বাচন</span></button><button class="tile" onclick="go('support')">🎧<b>অভিযোগ করুন</b><span>সমস্যা জানান</span></button><button class="tile" onclick="go('account')">👤<b>আমার অ্যাকাউন্ট</b><span>গ্রাহকের তথ্য</span></button></div>
+<div class="card"><b>✓ সার্ভিস স্ট্যাটাস</b><p class="muted">আপনার সংযোগ চালু আছে — ডেমো, লাইভ যাচাই নয়</p></div>`;
+if(page==='billing')s+=`<div class="card"><div class="muted">চলতি মাসের বিল • ডেমো</div><div class="big">₹${paid?'0':'599'}</div><div class="row"><span>প্ল্যান</span><b>100 Mbps</b></div><div class="row" style="margin-top:12px"><span>পেমেন্ট স্ট্যাটাস</span><b>${paid?'পরিশোধিত':'বকেয়া'}</b></div>${paid?'<div class="notice">ডেমো পেমেন্ট সম্পন্ন দেখানো হয়েছে। বাস্তব টাকা নেওয়া হয়নি।</div><button class="btn secondary" onclick="paid=false;render()">ডেমো বিল পুনরায় দেখুন</button>':'<button class="btn" onclick="msg(\'এটি ডেমো। বাস্তব UPI পেমেন্টের জন্য অনুমোদিত পেমেন্ট গেটওয়ে ও সার্ভার যাচাই দরকার।\')">UPI দিয়ে পেমেন্ট</button>'}${notice?`<div class="notice">${notice}</div>`:''}<button class="btn secondary" onclick="go('home')">ফিরে যান</button></div><div class="card"><b>পেমেন্টের ইতিহাস</b><p class="muted">${paid?'ডেমো এন্ট্রি: ₹599 — পরিশোধিত':'এখনও কোনো পেমেন্ট রেকর্ড নেই'}</p></div>`;
+if(page==='plans')s+=plans.map(p=>`<div class="card row"><div><b>₹${p.v}/মাস</b><div class="muted">${p.s}</div></div><button class="btn small" onclick="msg('₹${p.v} ${p.s} প্ল্যান পরিবর্তনের অনুরোধ ডেমো হিসেবে নির্বাচিত হয়েছে।')">নির্বাচন</button></div>`).join('')+(notice?`<div class="notice">${notice}</div>`:'');
+if(page==='support')s+=`<div class="card"><b>নতুন অভিযোগ</b><label>সমস্যার বিবরণ</label><textarea id="ticketText" placeholder="যেমন: ইন্টারনেট চলছে না, স্পিড কম..."></textarea><button class="btn" onclick="addTicket()">অভিযোগ জমা দিন</button>${notice?`<div class="notice">${notice}</div>`:''}</div>`+tickets.map(t=>`<div class="card"><b>${t.id} • ${t.status}</b><p>${esc(t.message)}</p></div>`).join('');
+if(page==='account')s+=`<div class="card"><div class="big">👤</div><h3>রাহুল দাস</h3><div class="muted">গ্রাহক আইডি: CW1001</div><div class="item">মোবাইল <b style="float:right">XXXXXX1234</b></div><div class="item">প্ল্যান <b style="float:right">100 Mbps</b></div><div class="item">সংযোগ <b style="float:right">সক্রিয় (ডেমো)</b></div></div>`;
+return s+`<div class="nav">${[['home','⌂','হোম'],['billing','৳','বিল'],['support','♧','সাপোর্ট'],['account','♙','অ্যাকাউন্ট']].map(n=>`<button class="${page===n[0]?'active':''}" onclick="go('${n[0]}')">${n[1]} ${n[2]}</button>`).join('')}</div>`;
+}
+function addTicket(){let el=document.getElementById('ticketText'),v=el&&el.value.trim();if(!v){msg('দয়া করে সমস্যার বিবরণ লিখুন।');return}tickets.unshift({id:'CW-T'+(101+tickets.length),message:v,status:'নতুন'});msg('অভিযোগটি ডেমো হিসেবে নথিভুক্ত হয়েছে।')}
+function adminView(){
+let s=`<div class="row"><div><b>অ্যাডমিন ড্যাশবোর্ড</b><div class="muted">Cyber Web • ডেমো ম্যানেজমেন্ট</div></div><span>⚙️</span></div>`;
+if(page==='overview')s+=`<div class="grid"><div class="card">👥<div class="muted">মোট গ্রাহক</div><div class="big">${customers.length}</div></div><div class="card">📶<div class="muted">সক্রিয় সংযোগ</div><div class="big">${customers.filter(c=>c.status==='সক্রিয়').length}</div></div><div class="card">৳<div class="muted">ডেমো মাসিক বিল</div><div class="big">₹${customers.reduce((a,c)=>a+c.plan,0)}</div></div><div class="card">🎧<div class="muted">অভিযোগ</div><div class="big">${tickets.length}</div></div></div><div class="card"><b>দ্রুত কাজ</b><button class="btn" onclick="go('add')">＋ নতুন গ্রাহক যোগ করুন</button><button class="btn secondary" onclick="go('customers')">গ্রাহক তালিকা</button><button class="btn secondary" onclick="go('complaints')">অভিযোগ পরিচালনা (${tickets.length})</button></div>`;
+if(page==='add')s+=`<div class="card"><b>নতুন গ্রাহক যোগ করুন</b><label>গ্রাহকের নাম</label><input id="newName" placeholder="সম্পূর্ণ নাম"><label>মোবাইল নম্বর</label><input id="newPhone" inputmode="numeric" placeholder="১০ সংখ্যার মোবাইল"><label>ইন্টারনেট প্ল্যান</label><select id="newPlan">${plans.map(p=>`<option value="${p.v}">₹${p.v} — ${p.s}</option>`).join('')}</select><button class="btn" onclick="addCustomer()">গ্রাহক সংরক্ষণ করুন</button><button class="btn secondary" onclick="go('overview')">বাতিল</button>${notice?`<div class="notice">${notice}</div>`:''}</div>`;
+if(page==='customers')s+=`<div class="card"><b>গ্রাহক তালিকা</b>${customers.map(c=>`<div class="item"><div class="row"><div><b>${esc(c.name)}</b><div class="muted">${c.id} • ₹${c.plan}/মাস</div></div><span class="badge ${c.status==='সক্রিয়'?'':'warn'}">${c.status}</span></div><button class="btn secondary" style="margin-top:8px" onclick="toggleCustomer('${c.id}')">ডেমো স্ট্যাটাস পরিবর্তন</button></div>`).join('')}<button class="btn" onclick="go('add')">＋ নতুন গ্রাহক</button></div>`;
+if(page==='complaints')s+=`<div class="card"><b>গ্রাহকের অভিযোগ</b>${tickets.length?tickets.map(t=>`<div class="item"><b>${t.id}</b><p>${esc(t.message)}</p><div class="row"><span class="badge ${t.status==='সমাধান হয়েছে'?'':'warn'}">${t.status}</span><button class="btn small" onclick="toggleTicket('${t.id}')">${t.status==='সমাধান হয়েছে'?'আবার খুলুন':'সমাধান হয়েছে'}</button></div></div>`).join(''):'<p class="muted">এখনও কোনো অভিযোগ নেই।</p>'}</div>`;
+return s+`<div class="nav"><button class="${page==='overview'?'active':''}" onclick="go('overview')">▦ হোম</button><button class="${page==='customers'?'active':''}" onclick="go('customers')">♙ গ্রাহক</button><button class="${page==='add'?'active':''}" onclick="go('add')">＋ নতুন</button><button class="${page==='complaints'?'active':''}" onclick="go('complaints')">♧ অভিযোগ</button></div>`;
+}
+function addCustomer(){let n=document.getElementById('newName').value.trim(),p=document.getElementById('newPhone').value.replace(/\D/g,''),v=Number(document.getElementById('newPlan').value);if(!n||p.length!==10){msg('নাম ও সঠিক ১০ সংখ্যার মোবাইল নম্বর দিন।');return}customers.push({name:n,id:'CW'+(1001+customers.length),plan:v,status:'সক্রিয়'});page='customers';notice='';render()}
+function toggleCustomer(id){customers=customers.map(c=>c.id===id?{...c,status:c.status==='সক্রিয়'?'বকেয়া':'সক্রিয়'}:c);render()}
+function toggleTicket(id){tickets=tickets.map(t=>t.id===id?{...t,status:t.status==='সমাধান হয়েছে'?'নতুন':'সমাধান হয়েছে'}:t);render()}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+render();
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script></body></html>
