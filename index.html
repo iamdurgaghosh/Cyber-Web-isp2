@@ -58,7 +58,7 @@ render();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 }
-
+</script>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
   import {
@@ -86,4 +86,7 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
       console.log("No user is logged in.");
     }
   });
-</script> </script></body></html>
+</script> 
+</script>
+</body>
+</html>
